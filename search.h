@@ -2,8 +2,12 @@
 #include <cstdlib>
 
 /**
- * @brief ф-ия линейного поиска 
- * 
+ * @brief ф-ия линейного поиска
+ * @note 
+ * на вход можно подавать отсортированный и неотсортированный массив
+ * BigO:
+ * Лучший случай: О(1) - первый элемент то, что нам нужно
+ * Средний/Худший случай: О(n) - либо половину элементов, либо в конце, либо нет подходящего элемента
  * @tparam T - шаблонный тип данных
  * @param *arr - указатель на массив  
  * @param size - размер массива
@@ -23,8 +27,11 @@ size_t linear_search(const T* arr, size_t size, T&num){
 }
 
 /**
- * @brief ф-ия бинарного поиска
- * 
+ * @brief ф-ия бинарного поиска 
+ * на вход обязательно отсортированный массив, иначе не получиться реализовать
+ * BigO:
+ * Лучший случай: О(1) - центральный элемент то, что нам нужно
+ * Средний/Худший случай: О(log n) - либо где-то (кроме середины), либо нет подходящего элемента
  * @tparam T - шаблонный тип данных
  * @param *arr - указатель на массив
  * @param size - размер массива
@@ -45,17 +52,21 @@ size_t binary_search(const T* arr, size_t size, T target){
         if (arr[middle] < target){
             left = middle + 1;
         } else {
+            if (middle == 0) break;
             right = middle - 1;
-        }
-
-        return -1;
+        }   
     }
-
+    return -1;
 } 
 
 /**
  * @brief ф-ия интерполяционного поиска
- * 
+ * @note 
+ * на вход нужны равномерно распределенные данные
+ * BigO
+ * Лучший случай: О(1) - элемент сразу найден
+ * Средний случай: О(log (log n)) - либо где-то (кроме середины), либо нет подходящего элемента
+ * Худший случай: O(n) - на неравномерно распред. данных 
  * @tparam T - тип данных 
  * @param *arr - указатель на массив 
  * @param size - размер массива  
@@ -65,7 +76,7 @@ size_t binary_search(const T* arr, size_t size, T target){
 template <typename T>
 size_t interpolation_search(const T* arr, size_t size, T target){
     size_t left = 0;
-    size_t right = 0;
+    size_t right = size - 1;
 
     while (left <= right && target >= arr[left] && target <= arr[right]){
         if (arr[right] == arr[left]){
@@ -74,7 +85,7 @@ size_t interpolation_search(const T* arr, size_t size, T target){
             } 
             return -1;
         }
-        size_t ind = (left + ((target - arr[left])*(right - left)))/arr[right] - arr[left];
+        size_t ind = left + ((target - arr[left])*(right - left))/(arr[right] - arr[left]);
 
         if (ind < left || ind > right){
             return -1;
@@ -93,4 +104,6 @@ size_t interpolation_search(const T* arr, size_t size, T target){
     }
     return -1;
 }
+
+bool test_search();
 

@@ -4,6 +4,9 @@
 #include <chrono>
 #include <random>
 #include <fstream>
+#include <iomanip>
+#include <iostream>
+
 
 using namespace std;
 using namespace std::chrono;
@@ -20,7 +23,7 @@ using namespace std::chrono;
  * @return long long time_ms - возвращаем время в миллисекнудах
  */
 template <typename Func, typename... Args>
-long long timer_code(Func func, Args... arg, const string& filename = "data.txt"){
+long long timer_code(Func func, const string& filename = "data.txt", Args... arg){
     //начальное время
     //now() - возвращаем время в наносекундах
     auto t0 = steady_clock::now();
@@ -102,6 +105,7 @@ T* create_arr(size_t size, T min, T max){
         //rang - объект
         arr[i] = rang(gen);
     }
+    return arr;
 
 }
 
@@ -156,7 +160,7 @@ void write_arr_in_file(const T* arr, size_t size, const string& filename, bool a
      file << size << endl; 
 
      // Записываем элементы
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < size; ++i) {
         // Для целых чисел выводим без форматирования
         if constexpr (is_integral_v<T>) {
             file << arr[i];
@@ -165,7 +169,7 @@ void write_arr_in_file(const T* arr, size_t size, const string& filename, bool a
             file << fixed << setprecision(4) << arr[i];
         }
         // Разделитель
-        if (i < n - 1) {
+        if (i < size - 1) {
             file << " ";
         }
     }
