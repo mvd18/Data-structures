@@ -24,3 +24,17 @@
 <img src = image-5.png width=450>  
 <!-- ![alt text](image-5.png) -->  
 
+7. при работе над заданием о проверки глубины стэка добавила еще один файлик  
+![alt text](image-6.png)  
+
+8. коммит 
+![alt text](image-7.png) 
+
+9. коммит  
+![alt text](image-8.png) 
+
+10. коммит  
+![alt text](image-9.png)
+
+11. коммит 
+![alt text](image-10.png)
